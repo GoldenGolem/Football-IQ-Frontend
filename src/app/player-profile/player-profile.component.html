@@ -1,0 +1,812 @@
+
+<section class="container-fluid with-maxwidth chapter" *ngIf="playerProfile">
+  <div class="container-fluid with-maxwidth chapter player-profile">
+    <article class="article">
+      <style type="text/css">
+  .app-main  .app-sidebar.bg-color-light { background-color:#282c37 !important;}
+  .result-num{  font-size:28px; font-weight:300; margin-top:0px; }
+
+  a.result-num { text-decoration:none; color:#008080;    }
+  .watchlist-statistics span, .shortlist-statistics span, .target-statistics span { text-transform:uppercase; font-size:12px; vertical-align:top; display:inline-block; opacity:.80;} 
+  .quick-info { float:left; padding-left:20px; border-left:1px solid #f3f3f3 ; margin-left:10px;}
+  .quick-info span{ display:block;}
+  .watchlist-statistics .box-body, .shortlist-statistics .box-body, .target-statistics .box-body { padding:0.75rem 1.25rem; }
+
+  </style>
+      <section>
+        <div>
+          <div class="col-xl-12 breadcrumbs" ><a [routerLink]="['/app/home']" >Dashboard</a> &rarr; <a [routerLink]="['/app/search']">Player(s)</a> &rarr; {{playerProfileName}}</div>
+          <div class="row">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+              <h1><a href="" class="link-back"><i class="nav-icon material-icons color-white">chevron_left</i></a> {{playerProfile.full_name }},&nbsp; 
+               {{ playerProfile['playersStats2016s']['positions'][0]}}, &nbsp;
+               {{playerProfile['current_team_name']}}, &nbsp;
+              {{playerProfile['age']}}, &nbsp;
+              {{playerProfile['playersStats2016s']['contract_expires']}}
+              {{playerProfile['current_competition_name']}}, &nbsp;
+              {{playerProfile['current_competition_country']}}, &nbsp;
+             &euro; {{playerProfile['market_value_money']}}             <!-- {{playerProfile['playersStats2016s']['market_value']  | currency:'EUR':true:'4.2-2'}}, &nbsp; -->
+           </h1>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">             
+            <button (click)="download()" class="btn-w-md btn-mini mat-raised-button">Download PDF</button>
+              <button *ngIf="!isAddWatchList"  class="btn-w-md btn-mini mat-raised-button" (click)="addToWatchlist()">+ Add To Watchlist</button>   
+        <button *ngIf="!isAddShortList"  class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddPlayerInShortlistForm()">+ Add To Shortlist</button>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="box box-body box-default">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> DOB: <strong>{{birthday}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Height: <strong>{{height}}</strong> <br/>
+                      </div>
+                      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"> Recently Transffered: <strong>{{recently_transferred}}</strong><br/>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Nationalities: <strong>{{nationality}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Weight: <strong>{{weight}}</strong> <br/>
+                        <br/>
+                        Foot: <strong>{{foot}}</strong> </div>
+                      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"> On Loan: <strong>{{on_loan}}</strong> </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <br/>
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Primary Position: <strong>{{primary_position}}</strong> </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <md-progress-bar mode="determinate" [value]="primary_position_percent"></md-progress-bar>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><strong>{{primary_position_percent}}%</strong> </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <div class="row">
+                       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Secondary Position: <strong>{{secondary_position}}</strong> </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <md-progress-bar mode="determinate" [value]="secondary_position_percent"></md-progress-bar>
+                      </div>
+                       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><strong>{{secondary_position_percent}}%</strong> </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Third Position: <strong>{{third_position}}</strong> </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <md-progress-bar mode="determinate" [value]="third_position_percent"></md-progress-bar>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><strong>{{third_position_percent}}%</strong> </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="box box-body box-default">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> Select Session
+                        <md-select class="col-xl-6" placeholder="Season" id="season_drop" (change)="onChangeSeason($event.value)" [ngModel]="seasonV">
+                          <md-option *ngFor="let season of seasons | keyarray" [value]="season.key"> {{ season.value }} </md-option>
+                        </md-select>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> Select Scope
+                        <md-select class="col-xl-6" placeholder="Scope" id="scope_drop" (change)="onChangeScope($event.value)" [ngModel]="scopeV">
+                          <md-option *ngFor="let sp of scope | keyarray" [value]="sp.key"> {{ sp.value }} </md-option>
+                        </md-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <div class="row">
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> App: <strong>{{total_matches}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Minutes: <strong>{{minutes_on_field}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Min/Apps: <strong>{{minutes_per_app | number : '1.2-2'}}</strong> </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> 90's: <strong>{{n90s | number : '1.2-2' }}</strong> </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Passing {{at_main_cat_passing_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_passing_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Offensive {{at_main_cat_offensive_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_offensive_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Defensive   {{at_main_cat_defensive_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_defensive_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Duels  {{at_main_cat_duels_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_duels_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Aerial {{at_main_cat_aerial_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_aerial_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> Set Pieces {{at_main_cat_set_pieces_overall | number : '1.2-2' }}
+                        <round-progress
+      [current]="at_main_cat_set_pieces_overall"
+      [max]="100"
+      [color]="'#45ccce'"
+      [background]="'#eaeaea'"
+      [radius]="25"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="true"
+      [clockwise]="true"
+      [responsive]="false"
+      [duration]="800"
+      [animation]="'easeOutCubic'"
+      [animationDelay]="0"></round-progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="box box-body box-default">
+        <md-tab-group>
+          <md-tab label="Participations">
+            <section class="box box-transparent tabs-data"> 
+              <div class="box box-body box-default">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Apps: <strong>{{total_matches}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Minutes: <strong>{{minutes_on_field}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> Min/Apps: <strong>{{minutes_per_app | number : '1.2-2'}}</strong> </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> 90's: <strong>{{n90s | number : '1.2-2' }}</strong> </div>
+                      
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" *ngFor="let partkey of partArray | keyarray"> {{partkey.key}}: <strong>{{playerProfile[seasons_player][partkey.value] | number : '1.2-2'}}</strong> </div>
+
+                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" > Team Names: <strong *ngFor="let team_name of playerProfile[seasons_player]['team_names']" >{{team_name}} ,</strong> </div>
+                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" > Competition Names: <strong *ngFor="let competition_name of playerProfile[seasons_player]['competition_names']" >{{competition_name}} ,</strong> </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Statistics">
+            <section class="box box-transparent">
+              <div class="box box-body box-default">
+                <md-tab-group>
+                  <md-tab label="Passing">
+                    <section class="box box-transparent">
+                      <div class="box box-body box-default">
+                        <div class="row">
+                          <div class="horizontal-scroll">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                              <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statispassingkey of statisPassingArray | keyarray">
+                                  <div class="box box-body box-default">
+                                    <div class="player-specs" >
+                                      <div class="title"><strong>{{statispassingkey.key}}</strong></div>
+                                      <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statispassingchildkey of statispassingkey.value | keyarray">
+                                          <div class="float-left">{{statispassingchildkey.key}} </div>
+
+                                          <div class="float-right"><span class="{{playerProfile[seasons_player][statispassingchildkey.value]}}">{{playerProfile[seasons_player][statispassingchildkey.value] | number : '1.2-2'}}</span></div>
+
+                                        </div>
+                                      </div>
+                                      <!--
+																 USE THIS CSS CLASS FOR RATING
+																 skill-poor
+																 skill-average
+																 skill-fair
+																 skill-good
+																 skill-excellent
+																 -->
+                                    </div> 
+                                  </div>
+                                  <!-- Test -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </md-tab>
+                  <md-tab label="Offensive">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisOffensivekey of statisOffensiveArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisOffensivekey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisOffensivechildkey of statisOffensivekey.value | keyarray">
+                                    <div class="float-left">{{statisOffensivechildkey.key}} </div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisOffensivechildkey.value] }}">{{playerProfile[seasons_player][statisOffensivechildkey.value] | number : '1.2-2'}} </span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <md-tab label="Defensive">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisDefensivekey of statisDefensiveArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisDefensivekey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisDefensivechildkey of statisDefensivekey.value | keyarray">
+                                    <div class="float-left">{{statisDefensivechildkey.key}} </div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisDefensivechildkey.value] }}">{{playerProfile[seasons_player][statisDefensivechildkey.value] | number : '1.2-2'}} </span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <md-tab label="Duels">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisDuelskey of statisDuelsArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisDuelskey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisDuelschildkey of statisDuelskey.value | keyarray">
+                                    <div class="float-left">{{statisDuelschildkey.key}} </div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisDuelschildkey.value] }}">{{playerProfile[seasons_player][statisDuelschildkey.value] | number : '1.2-2'}} </span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <md-tab label="Arial">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisAerialkey of statisAerialArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisAerialkey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisAerialchildkey of statisAerialkey.value | keyarray">
+                                    <div class="float-left">{{statisAerialchildkey.key}} </div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisAerialchildkey.value] }}">{{playerProfile[seasons_player][statisAerialchildkey.value] | number : '1.2-2'}} </span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <md-tab label="Set Pieces">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisSetpieceskey of statisSetpiecesArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisSetpieceskey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisSetpieceschildkey of statisSetpieceskey.value | keyarray">
+                                    <div class="float-left">{{statisSetpieceschildkey.key}}</div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisSetpieceschildkey.value]}}">{{playerProfile[seasons_player][statisSetpieceschildkey.value] | number : '1.2-2'}}</span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <md-tab label="Goalkeeping">
+                    <div class="box-body box-default">
+                      <div class="horizontal-scroll">
+                        <div class="row">
+                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let statisGoalkeeptingkey of statisGoalkeeptingArray | keyarray">
+                            <div class="box box-body box-default">
+                              <div class="player-specs" >
+                                <div class="title"><strong>{{statisGoalkeeptingkey.key}}</strong></div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let statisGoalkeeptingchildkey of statisGoalkeeptingkey.value | keyarray">
+                                    <div class="float-left">{{statisGoalkeeptingchildkey.key}}</div>
+                                    <div class="float-right"> <span class="{{playerProfile[seasons_player][statisGoalkeeptingchildkey.value]}}">{{playerProfile[seasons_player][statisGoalkeeptingchildkey.value] | number : '1.2-2'}}</span> </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                </md-tab-group>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Attributes">
+            <section class="box box-transparent">
+              <div class="box box-body box-default">
+                <md-tab-group>
+                  <md-tab label="Combo">
+                    <div class="box-body box-default">
+                      <div class="row">
+                        <div class="horizontal-scroll">
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let combokey of attrComboArray | keyarray">
+                                <div class="box box-body box-default">
+                                  <div class="player-specs" >
+                                    <div class="title"><strong>{{combokey.key}}</strong></div>
+                                    <div class="row">
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let combochildkey of combokey.value | keyarray">
+                                        <div class="float-left">{{combochildkey.key}} </div>
+                                        <div class="float-right">
+
+                                          <span *ngIf="combokey.key==='Mentel'"> 
+
+                                            <span class="{{playerProfile[scope_player][combochildkey.value]| classProfileKey}}">{{playerProfile[scope_player][combochildkey.value]| number : '1.2-2'}} </span> 
+
+                                          </span>
+
+                                          <span *ngIf="combokey.key==='Passing' ">
+                                            <span class="{{playerProfile[scope_player][combochildkey.value]| classProfileKey}}">{{playerProfile[scope_player][combochildkey.value]| number : '1.2-2'}} </span>
+                                          </span>
+
+                                          <span *ngIf="combokey.key==='Offensive'">
+                                            <span class="{{playerProfile[scope_player][combochildkey.value]| classProfileKey}}"> {{playerProfile[scope_player][combochildkey.value]| number : '1.2-2'}}</span>
+                                          </span>
+
+                                          <span *ngIf="combokey.key==='Defensive'">
+                                            <span class="{{playerProfile[scope_player][combochildkey.value]| classProfileKey}}"> {{playerProfile[scope_player][combochildkey.value]| number : '1.2-2'}} </span>
+                                        </span>
+
+                                        <span *ngIf="combokey.key==='Aerial'">
+                                            <span class="{{playerProfile[scope_player][combochildkey.value]| classProfileKey}}"> {{playerProfile[scope_player][combochildkey.value]| number : '1.2-2'}} </span>
+                                        </span>
+
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-tab>
+                  <!--  <md-tab label="Classic (All)">
+                    <section class="box box-transparent">
+                      <div class="box box-body box-default">
+                        <div class="row">
+                          <div class="horizontal-scroll">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                              <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let callkey of attrClassicAllArray | keyarray"> <br/>
+                                  <br/>
+                                  <div class="box-header">{{callkey.key}}</div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                                    <div class="row">
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let callchildkey of callkey.value | keyarray"> <br/>
+                                        <br/>
+                                        <div class="box-header"> {{callchildkey.key}} </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                                          <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let callsuperchildkey of callchildkey.value | keyarray"> {{callsuperchildkey.key}}: <strong> {{playerProfile['playersExpectedAttributes2016s'][callsuperchildkey.value]| number : '1.2-2'}} </strong> </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                  </md-tab> -->
+									
+                  <md-tab label="Classic">
+                    <md-tab-group>
+                      <ng-container *ngFor="let coverallkey of attrClassicOverAllArray | keyarray">
+                        <md-tab label={{coverallkey.key}}>
+                          <section class="box box-transparent tabs-data">
+                            <div class=" box-body box-default">
+                              <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                  <div class="row">
+                                    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let coverallkey of attrClassicOverAllArray | keyarray"> -->
+                                    <!--  <br/>
+                                  <br/> -->
+                                    <!-- <div class="box-header">{{coverallkey.key}}</div> -->
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 specs" *ngFor="let coverallchildkey of coverallkey.value | keyarray"> 
+                                     <div class="row">
+                                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs">
+                                           
+                                   <div class="float-left"> {{coverallchildkey.key}}:</div>
+                                      <!-- {{coverallchildkey.value}} -->
+                                       <div class="float-right"><span class=" {{playerProfile[scope_player][coverallchildkey.value]|  classProfileKey}}"> {{playerProfile[scope_player][coverallchildkey.value]| number : '1.2-2'}} </span> </div>
+
+                                      </div>
+                                      </div>
+                                      </div>
+                                    <!-- </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                        </md-tab>
+                      </ng-container>
+                    </md-tab-group>
+                  </md-tab>
+							
+                  <!--  <md-tab label="Behaviour (by Type)">
+                    <section class="box box-transparent">
+                      <div class="box box-body box-default">
+                        <div class="row">
+                          <div class="horizontal-scroll">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                              <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let btypekey of attrBehaviourTypeArray | keyarray"> <br/>
+                                  <br/>
+                                  <div class="box-header">{{btypekey.key}}</div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                                    <div class="row">
+                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let btypechildkey of btypekey.value | keyarray"> <br/>
+                                        <br/>
+                                        <div class="box-header"> {{btypechildkey.key}} </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <br/>
+                                          <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let btypesuperchildkey of btypechildkey.value | keyarray"> {{btypesuperchildkey.key}}: <strong> {{playerProfile['playersExpectedAttributes2016s'][btypesuperchildkey.value]| number : '1.2-2'}}</strong> </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </md-tab> -->
+									
+                  <md-tab label="Behaviour">
+                    <md-tab-group>
+                      <ng-container *ngFor="let bcategorykey of attrBehaviourCategoryArray | keyarray">
+
+                        <md-tab label={{bcategorykey.key}}>
+                          <section class="box box-transparent behaviour-section">
+                            <div class="box-body box-default">
+
+                              <div class="row">
+                                <div class="horizontal-scroll">
+                                  <!--  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let bcategorykey of attrBehaviourCategoryArray | keyarray"> -->
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="row">
+
+                                    <ng-container *ngFor="let bcategorychildkey of bcategorykey.value | keyarray">
+<div class="behaviour-skills first-col" *ngIf="(bcategorychildkey.key == 'Overalls')" >
+
+                                        <div class="box box-body box-default">
+                                          <div class="player-specs" >
+
+                                            <div class="title"><strong> </strong> </div>
+                                            <div class="row">
+                                               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs"*ngFor="let bcategorysuperchildkey of bcategorychildkey.value | keyarray">
+                                                <div class="float-left">{{bcategorysuperchildkey.key}}</div>
+                                               
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      </ng-container>                                      
+                                     
+                                      <div class="behaviour-skills" *ngFor="let bcategorychildkey of bcategorykey.value | keyarray">
+
+                                        <div class="box box-body box-default">
+                                          <div class="player-specs" >
+
+                                            <div class="title"><strong> {{bcategorychildkey.key}}</strong> </div>
+                                            <div class="row">
+
+                                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 specs" *ngFor="let bcategorysuperchildkey of bcategorychildkey.value | keyarray">
+                                                <!-- <div class="float-left">{{bcategorysuperchildkey.key}}</div> -->
+                                                <div class="float-right"><span class=" {{playerProfile[scope_player][bcategorysuperchildkey.value]| classProfileKey}}">{{playerProfile[scope_player][bcategorysuperchildkey.value]| number : '1.2-2'}}</span></div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                        </md-tab>
+                        <!-- </div> -->
+                      </ng-container>
+                    </md-tab-group>
+                  </md-tab>
+									
+                </md-tab-group>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Scouting">
+            <section class="box box-transparent">
+              <div class="box box-body box-default"> <br/>
+                <div class="row"> Scouting </div>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Market Value">
+            <section class="box box-transparent">
+              <div class="box box-body box-default"> <br/>
+                 <div class="row"> 
+
+       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 box box-default">
+        <div class="box-header" >Market Value</div>
+        <div class="box-body" style="height: 100%; padding-left: 100px;">
+          <div myECharts [EChartsOptions]="line4" style="height: 350px; width: 980px;"></div>
+        </div>     
+
+    
+                </div>
+                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="playerProfile['marketHistories']">
+                      <div class="box box-default table-box table-responsive" >
+                        <table class="mdl-data-table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                             
+                              <th class="mdl-data-table__cell--non-numeric">verein</th>
+                              <th class="mdl-data-table__cell--non-numeric">age</th>
+                              <th class="mdl-data-table__cell--non-numeric">datum_mw</th>
+                              <th class="mdl-data-table__cell--non-numeric">mw</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let marketHistory of playerProfile['marketHistories']['data']" >
+                              
+                              <td class="mdl-data-table__cell--non-numeric" >{{marketHistory['verein']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{marketHistory['age']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{marketHistory['datum_mw']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{marketHistory['mw']}}</td>
+                             
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+
+                  </div>
+                
+
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Injuries">
+            <section class="box box-transparent" *ngIf="playerProfile">
+              <div class="box box-body box-default"> <br/>
+                <div class="row"> 
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="playerProfile['injuryHistories']">
+                      <div class="box box-default table-box table-responsive" >
+                        <table class="mdl-data-table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                             
+                              <th class="mdl-data-table__cell--non-numeric">Season</th>
+                              <th class="mdl-data-table__cell--non-numeric">Injury</th>
+                              <th class="mdl-data-table__cell--non-numeric">From</th>
+                              <th class="mdl-data-table__cell--non-numeric">until</th>
+                              <th class="mdl-data-table__cell--non-numeric">Days</th>
+                              <th class="mdl-data-table__cell--non-numeric">Games Missed</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let injury of playerProfile['injuryHistories']['data']" >
+                              
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['season']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['injury']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['from']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['until']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['days']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{injury['missed']}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+                 </div>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="Transfers">
+            <section class="box box-transparent">
+              <div class="box box-body box-default"> <br/>
+                <div class="row"> 
+                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="playerProfile['transferHistories']">
+                      <div class="box box-default table-box table-responsive" >
+                        <table class="mdl-data-table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                             
+                              <th class="mdl-data-table__cell--non-numeric">Season</th>
+                              <th class="mdl-data-table__cell--non-numeric">Date</th>
+                              <th class="mdl-data-table__cell--non-numeric">Moving From</th>
+                              <th class="mdl-data-table__cell--non-numeric">Moving To</th>
+                              <th class="mdl-data-table__cell--non-numeric">MV</th>
+                              <th class="mdl-data-table__cell--non-numeric">Transfer Fee</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let transferHistory of playerProfile['transferHistories']['data']" >
+                              
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['season']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['date']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['from']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['to']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['mv']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{transferHistory['fee']}}</td>
+                              
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+
+                 </div>
+              </div>
+            </section>
+          </md-tab>
+          <md-tab label="National Team">
+            <section class="box box-transparent">
+              <div class="box box-body box-default"> <br/>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="playerProfile['natTeamHistories']">
+                      <div class="box box-default table-box table-responsive" >
+                        <table class="mdl-data-table table-bordered table-striped" >
+                          <thead>
+                            <tr>
+                             
+                              <th class="mdl-data-table__cell--non-numeric">National Team</th>
+                              <th class="mdl-data-table__cell--non-numeric">Debut</th>
+                              <th class="mdl-data-table__cell--non-numeric">Order</th>
+                              <th class="mdl-data-table__cell--non-numeric">Matches</th>
+                              <th class="mdl-data-table__cell--non-numeric">Coach during debut</th>
+                              <th class="mdl-data-table__cell--non-numeric">Age at debut</th>
+                              <th class="mdl-data-table__cell--non-numeric">Goals</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let nteam of playerProfile['natTeamHistories']['data']" >
+                              
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['team']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['debut']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['order']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['matches']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['coach']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['age']}}</td>
+                              <td class="mdl-data-table__cell--non-numeric" >{{nteam['goals']}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      </div>
+
+                 </div>
+              </div>
+            </section>
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </article>
+  </div>
+</section>
+
+<pdf-profile></pdf-profile>

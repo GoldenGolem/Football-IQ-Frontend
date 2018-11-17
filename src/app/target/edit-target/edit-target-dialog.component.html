@@ -1,0 +1,55 @@
+
+  <div class="main-body">
+  
+       <md-tab-group>
+
+    <md-tab label="Edit Target" *ngIf="modaltype=='edit'">
+     <div class="divider divider-sm"></div>  
+   <div class="divider divider-lg"></div>
+  <div style="clear:both; display:none;" class="callouttoken" id="targetSuccess">
+    <div class="callout callout-success">
+    <p>Successfully Added to Target :)</p>
+  </div>
+  </div>
+      <section [hidden]="submitted">
+       <form name="material_login_form" class="md-form-auth form-validation" (ngSubmit)="onSubmit()" #heroForm="ngForm">
+          <fieldset>
+            <div class="form-group">
+            <div class="row">
+          <div class="col-xl-12">
+              <md-input-container class="full-width">
+                <input required mdInput name="target_name" type="text" [(ngModel)]="model.target_name" name="target_name"
+               #target_name="ngModel" placeholder="Target Name">
+              </md-input-container>
+              </div></div>
+            <!--   <div [hidden]="target_name.valid || target_name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div> -->
+            </div>
+            <div class="form-group">
+            <div class="row">
+          <div class="col-xl-12">
+              <md-input-container class="full-width">
+                <textarea required mdInput [(ngModel)]="model.target_desc" name="target_desc"placeholder="Target Description" rows="7" cols="40"></textarea>
+              </md-input-container>
+              </div></div>
+            </div>
+            <div class="row" style="margin-top:25px">
+          <div class="col-xl-12">
+             <button md-raised-button  type="submit" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!heroForm.form.valid" color="primary">Confirm</button>
+             </div></div>
+            
+          </fieldset>
+        </form>
+      </section>
+    </md-tab>
+   
+  </md-tab-group>
+
+       
+
+        
+
+     
+  </div>

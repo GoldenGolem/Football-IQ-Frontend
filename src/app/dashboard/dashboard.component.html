@@ -1,0 +1,153 @@
+<column-filter [playerKeys]='playerKeys' ></column-filter>
+<div class="container-fluid with-maxwidth" style="padding:5px 15px 0 15px; ">
+ 
+
+<div class="container-fluid with-maxwidth chapter">
+ <div class="row">
+      <div class="col-xl-12 breadcrumbs" *ngIf="!showstype && isAdmin!=true"><a [routerLink]="['/app/home']" >Dashboard</a> &rarr; <a [routerLink]="['/app/shortlist']" *ngIf="!showstype && isAdmin!=true">Shortlist(s)</a> &rarr; {{shortlistName}}</div>
+       <div class="col-xl-12 breadcrumbs" *ngIf="!showttype && usertype=='manager' && isAdmin!=true"><a [routerLink]="['/app/home']" >Dashboard</a> &rarr; <a [routerLink]="['/app/target']" *ngIf="!showttype && usertype=='manager' && isAdmin!=true">Target(s)</a> &rarr; {{targetName}}</div>
+    </div>
+        <div class="row">
+          <div class="col-xl-4 watchlist-statistics">
+                <div class="box box-body box-default"><span class="ic-quick"><span>Watchlist</span></span><div class="quick-info"><a [routerLink]="['/app/watchlist',{wtype:1}]" class="result-num">{{watchlistsCount}} Players</a></div> </div>
+          </div>
+          <div class="col-xl-4 shortlist-statistics">
+              <div class="box box-body box-default"><span class="ic-quick"><span>Shortlist</span></span><div class="quick-info"><a [routerLink]="['/app/shortlist']" class="result-num">{{shortlistPlayersCount}} Players</a></div></div>
+           </div>
+          <div class="col-xl-4 target-statistics" *ngIf="usertype=='manager'">
+              <div class="box box-body box-default"><span class="ic-quick"><span>Target</span></span><div class="quick-info"><a [routerLink]="['/app/target']" class="result-num">{{targetPlayersCount}} Players</a></div></div>
+           </div></div>
+       
+     
+  </div></div>
+<section class="container-fluid with-maxwidth chapter">
+<div class="container-fluid with-maxwidth chapter">
+<article class="article">
+<style type="text/css">
+.app-main  .app-sidebar.bg-color-light { background-color:#282c37 !important;}
+.result-num{  font-size:28px; font-weight:300; margin-top:0px; }
+
+a.result-num { text-decoration:none; color:#008080;    }
+.watchlist-statistics span, .shortlist-statistics span, .target-statistics span { text-transform:uppercase; font-size:12px; vertical-align:top; display:inline-block; opacity:.80;} 
+.quick-info { float:left; padding-left:20px; border-left:1px solid #f3f3f3 ; margin-left:10px;}
+.quick-info span{ display:block;}
+.watchlist-statistics .box-body, .shortlist-statistics .box-body, .target-statistics .box-body { padding:0.75rem 1.25rem; }
+
+</style>
+<section>
+<div class="box shadow box-default" style="width:100%; float:right;border-radius:5px; margin-top:10px;">
+  <div class="box-body">
+  
+    <div class="row">
+		
+		<div class="col-xl-1">
+        <h1 class="article-title"> <span>Search</span></h1>
+      </div>
+      <div class="col-xl-3">
+        <md-select class="col-xl-12" placeholder="Season" id="season_drop" [(ngModel)]="selectedSeason">
+          <md-option *ngFor="let season of seasons | keyarray" [value]="season.key"> {{ season.value }} </md-option>
+        </md-select>
+      </div>
+      <div class="col-xl-3">
+        <md-select class="col-xl-12" placeholder="Scope" id="scope_drop" [(ngModel)]="selectedScope">
+          <md-option *ngFor="let sp of scope | keyarray" [value]="sp.key"> {{ sp.value }} </md-option>
+        </md-select>
+      </div>
+      <div class="col-xl-3">
+        <md-select class="col-xl-12" placeholder="League" id="league_drop" [(ngModel)]="selectedleague">
+          <md-option *ngFor="let lp of league | keyarray" [value]="lp.key"> {{ lp.value }} </md-option>
+        </md-select>
+      </div>
+      <div class="col-xl-2">
+        <button md-raised-button color="accent" class="btn-w-md mat-raised-button mat-primary" id="search_filter"> <i class="nav-icon material-icons">search</i> Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<md-select placeholder="LC" id="lc" [(ngModel)]="selectedlc">
+          <md-option *ngFor="let lca of lc | keyarray" [value]="lca.key">
+          {{ lca.value }}
+          </md-option>
+        </md-select>-->
+<div class="divider divider-sm"></div>
+<div class="divider divider-lg"></div>
+<div class="divider divider-sm"></div>
+<div class="divider divider-lg"></div>
+<div class="box" style="width:100%; float:right;box-shadow: none; margin-top:15px;">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="row">
+       <div class="col-xl-10">
+    <button *ngIf="showwtype && showstype && showttype && isAdmin!=true" id="addtowatch" class="btn-w-md btn-mini mat-raised-button" (click)="addToWatchlist()">+ Add To Watchlist</button>
+
+   
+    <button *ngIf="showstype && showttype && isAdmin!=true" id="addtoshort"  class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddPlayerInShortlistForm()">+ Add To Shortlist</button>
+    
+      <button *ngIf="!showstype && isAdmin!=true" id="addtoshort"  class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddPlayerInShortlistForm()">+ Add To Other Shortlist</button>
+      <button *ngIf="!showstype && isAdmin!=true"   class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddOtherPlayerInShortlistForm()">+ Add New Player</button>
+       <button *ngIf="!showstype && usertype=='manager' && isAdmin!=true" id="addtoshort"  class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddPlayerInTargetForm()">+ Add To Target</button>
+       
+      <button *ngIf="!showttype && usertype=='manager' && isAdmin!=true" id="addtoshort"  class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithAddPlayerInTargetForm()">+ Add To Other Target</button>
+</div>
+
+        <div class="col-xl-2">
+          <md-select placeholder="Select View" (change)="listchange()" id="view_drop" [(ngModel)]="selectedView" class="col-xl-12 mat-select ng-tns-c6-3 mat-primary ng-pristine ng-valid ng-touched select-view float-right">
+            <md-option *ngFor="let savedView of savedViews | keyarray" [value]="savedView.key"> {{ savedView.value }} </md-option>
+          </md-select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider divider-sm"></div>
+<div class="divider divider-lg"></div>
+
+<div style="clear:both;" class="callouttoken" id="dataTableLoading">
+  <div class="callout callout-success">
+    <p>{{loadingPlayersMessage}}</p>
+  </div>
+</div>
+
+<div class="box box-default table-box table-responsive">
+  <table [attr.id]="datatableId" class="mdl-data-table table-bordered table-striped">
+    <thead>
+    <tr >
+        <th *ngFor="let playerKey of playerKeys; let i = index"> <!-- {{playerKey | formatPlayerKey}} -->
+          <span *ngIf="i != 0; else login"> {{playerKey | formatPlayerKey}} </span>
+          <ng-template #login>
+            <input name="select_all" value="1" id="example-select-all" type="checkbox">
+          </ng-template>
+        </th>
+      </tr>
+    </thead>
+    <tfoot style="display: table-header-group;">
+      <tr>
+        <th *ngFor="let playerKey of playerKeys" [attr.id]="playerKey"> </th>
+      </tr>
+    </tfoot>
+    <!-- <tbody>
+      <tr *ngFor="let item of players">
+      <ng-container *ngFor="let playerKey of playerKeys">
+        <td *ngIf="playerKey=='full_name'"><a href="javascript:void(0);" [routerLink]="['/app/playerdetail',{p_id:item['_id'],seasons_data:2016,scope_data:'Expected'}]"> {{item[playerKey]}}</a></td>
+        <td *ngIf="playerKey=='market_value'"> {{item[playerKey]}}</td>
+        <td *ngIf="(playerKey!='full_name') && (playerKey!='market_value')"> {{item[playerKey] | formatNumberKey}} </td>
+        </ng-container>
+      </tr>
+    </tbody> -->
+  </table>
+</div>
+<div class="clear"></div>
+<div id="pdfbutton" style="float:left"> </div>
+ <button *ngIf="!showwtype && isAdmin!=true" id="removewatch"  class="btn-w-md btn-mini mat-remove-button" (click)="removeFromWatchlist()">- Remove from Watchlist</button>
+  <button *ngIf="!showstype && isAdmin!=true"  class="btn-w-md btn-mini mat-remove-button" (click)="removeFromShortlist()">- Remove From Shortlist</button>
+	 <button *ngIf="!showttype && usertype=='manager' && isAdmin!=true"  class="btn-w-md btn-mini mat-remove-button" (click)="removeFromTarget()">- Remove From Target</button>
+<div class="paging">
+<div id="examplePageLength" class="dataTables_wrapper"></div>
+<div id="dataTableInfo"  class="dataTables_wrapper"></div>
+<div id="examplePaginate" class="dataTables_wrapper"></div>
+</div>
+<div class="divider divider-lg"></div>
+</section>
+</article>
+</div>
+</section>

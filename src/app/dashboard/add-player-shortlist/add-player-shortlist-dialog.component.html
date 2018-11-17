@@ -1,0 +1,61 @@
+
+<div class="main-body">
+  <md-tab-group>
+    <md-tab label="Existing List">
+      <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+        <div class="callout callout-success">
+          <p>Cheers! Player(s) added Successfully.</p>
+        </div>
+      </div>
+      <section class="container-fluid" >
+        <form name="material_login_form" class="md-form-auth form-validation" #listForm="ngForm" (ngSubmit)="onSubmitAddedExistShortlist()">
+          <fieldset>
+          <div class="row" style="margin-top:25px">
+          <div class="col-xl-12">
+          <md-select required name="shortlists_name" placeholder="Select Shortlist" [(ngModel)]="selectedValue" class="col-xl-12">
+            <md-option *ngFor="let shortlist of shortlists" [value]="shortlist.id"> {{ shortlist.shortlist_name }} </md-option>
+          </md-select>
+          </div></div>
+          <div class="row" style="margin-top:25px">
+          <div class="col-xl-12">
+          <button md-raised-button  type="submit" color="primary" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!listForm.form.valid">Go    </button>
+          </div></div>
+          </fieldset>
+        </form>
+      </section>
+    </md-tab>
+    <md-tab label="Create New Shortlist">
+      <div class="divider divider-sm"></div>
+      <div class="divider divider-lg"></div>
+      <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+        <div class="callout callout-success">
+          <p>Successfully Added to Shortlist :)</p>
+        </div>
+      </div>
+      <section class="container-fluid" [hidden]="submitted">
+        <form name="material_login_form" class="md-form-auth form-validation" (ngSubmit)="onSubmit()" #heroForm="ngForm">
+          <fieldset>
+          <div class="form-group">
+            <md-input-container class="full-width">
+              <input required mdInput name="shortlist_name" type="text" [(ngModel)]="model.shortlist_name" name="shortlist_name"
+               #shortlist_name="ngModel" placeholder="Shortlist Name">
+            </md-input-container>
+            <!--   <div [hidden]="shortlist_name.valid || shortlist_name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div> -->
+          </div>
+          <div class="form-group">
+            <md-input-container class="full-width">
+              <textarea required mdInput [(ngModel)]="model.shortlist_desc" name="shortlist_desc"placeholder="Shortlist Description"></textarea>
+            </md-input-container>
+          </div>
+          <button md-raised-button  type="submit" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!heroForm.form.valid" color="primary" >
+          Go
+          </button>
+          </fieldset>
+        </form>
+      </section>
+    </md-tab>
+  </md-tab-group>
+</div>

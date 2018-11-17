@@ -1,0 +1,92 @@
+
+<div class="main-body">
+
+    <div label="Create New Shortlist" *ngIf="modaltype=='create'">
+		<div><h4>Create New Shortlist</h4></div>
+     <div class="divider divider-sm"></div>
+		 <!-- <div class="divider divider-lg"></div>-->
+      
+      <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+        <div class="callout callout-success">
+          <p>Successfully Added to ShortList :)</p>
+        </div>
+      </div>
+      <section [hidden]="submitted">
+        <form name="material_login_form" class="md-form-auth form-validation" (ngSubmit)="onSubmit()" #heroForm="ngForm">
+          <fieldset>
+          <div class="form-group">
+					<div class="row">
+					<div class="col-xl-12">
+            <md-input-container class="full-width">
+              <input required mdInput name="shortlist_name" type="text" [(ngModel)]="model.shortlist_name" name="shortlist_name"
+               #shortlist_name="ngModel" placeholder="Shortlist Name">
+            </md-input-container>
+						</div></div>
+            <!--   <div [hidden]="shortlist_name.valid || shortlist_name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div> -->
+          </div>
+          <div class="form-group">
+					<div class="row" >
+					<div class="col-xl-12">
+            <md-input-container class="full-width">
+              <textarea required mdInput [(ngModel)]="model.shortlist_desc" name="shortlist_desc" placeholder="Shortlist Description" rows="7" cols="40"></textarea>
+            </md-input-container>
+						</div></div>
+          </div>
+					<div class="row" >
+					<div class="col-xl-12">
+          <button md-raised-button  type="submit" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!heroForm.form.valid" color="primary" >
+          Confirm
+          </button>
+					</div></div>
+          </fieldset>
+        </form>
+      </section>
+    </div>
+
+</div>
+<!-- <div class="container">
+  <div [hidden]="submitted">
+    <h1>Hero Form</h1>
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.shortlist_name" name="shortlist_name"
+               #name="ngModel">
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div>
+      </div>
+ 
+      <div class="form-group">
+        <label for="alterEgo">Alter Ego</label>
+        <input type="text" class="form-control" id="alterEgo"
+               [(ngModel)]="model.shortlist_desc" name="shortlist_desc">
+      </div>
+ 
+ 
+      <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+      <button type="button" class="btn btn-default" (click)="newCreateshortlist(); heroForm.reset()">New Hero</button>
+    </form>
+  </div>
+ 
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <div class="row">
+      <div class="col-xs-3">Name</div>
+      <div class="col-xs-9  pull-left">{{ model.shortlist_name }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Alter Ego</div>
+      <div class="col-xs-9 pull-left">{{ model.shortlist_desc }}</div>
+    </div>
+   
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+  </div>
+</div> -->

@@ -1,0 +1,139 @@
+
+<section class="container-fluid with-maxwidth chapter">
+  <article class="article">
+    <div class="page-maintenance">
+      <header class="text-center">
+        <div class="fiq-logo-large"></div>
+        <!-- <a [routerLink]="['/']" class="logo">{{AppConfig.brand}}</a> -->
+      </header>
+      <div class="content">
+        <div class="row">
+          <div class="col-xl-10">
+            <h2 class="article-title">Recent Addition to Watchlist</h2>
+          </div>
+          <div class="col-xl-2"> <a [routerLink]="['/app/watchlist',{wtype:1}]" class="btn-w-md btn-mini mat-raised-button float-right">View all</a> </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="main-content text-center"  style="margin-top:15px;">
+              <div class="box box-default table-box table-responsive">
+                <table class="mdl-data-table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="mdl-data-table__cell--non-numeric">Date</th>
+                      <th class="mdl-data-table__cell--non-numeric">Name</th>
+                      <th class="mdl-data-table__cell--non-numeric">Team</th>
+                      <th class="mdl-data-table__cell--non-numeric">Position</th>
+                      <th class="mdl-data-table__cell--non-numeric">Age</th>
+                      <th class="mdl-data-table__cell--non-numeric">Nationality</th>
+                      <th class="mdl-data-table__cell--non-numeric">Market Value</th>
+                      <th class="mdl-data-table__cell--non-numeric">Contract</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of watchLists" >
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['id']| formatDateKey}} </td>
+                      <td class="mdl-data-table__cell--non-numeric" ><a href="javascript:void(0);" [routerLink]="['/app/playerdetail',{p_id:item['playersMaster']['_id'],seasons_data:2016,scope_data:'Expected'}]">{{item['playersMaster']['full_name']}}</a></td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['current_team_name']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['primary_position']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['age']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" >{{item['playersMaster']['domestic_competition_area_name']}} </td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['market_value']  | currency:'EUR':true:'4.2-2'}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['contract_expires']}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-10">
+            <h2 class="article-title">Recent Addition to Shortlist</h2>
+          </div>
+          <div class="col-xl-2"> <a [routerLink]="['/app/shortlist']" class="btn-w-md btn-mini mat-raised-button float-right">View all</a></div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="main-content text-center"  style="margin-top:15px;">
+              <div class="box box-default table-box table-responsive">
+                <table class="mdl-data-table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="mdl-data-table__cell--non-numeric">Date</th>
+                      <th class="mdl-data-table__cell--non-numeric">List</th>
+                      <th class="mdl-data-table__cell--non-numeric">Name</th>
+                      <th class="mdl-data-table__cell--non-numeric">Team</th>
+                      <th class="mdl-data-table__cell--non-numeric">Position</th>
+                      <th class="mdl-data-table__cell--non-numeric">Age</th>
+                      <th class="mdl-data-table__cell--non-numeric">Nationality</th>
+                      <th class="mdl-data-table__cell--non-numeric">Market Value</th>
+                      <th class="mdl-data-table__cell--non-numeric">Contract</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of shortLists" >
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['id']| formatDateKey}} </td>
+                      <td class="mdl-data-table__cell--non-numeric" >{{item['shortlist']['shortlist_name']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" ><a href="javascript:void(0);" [routerLink]="['/app/playerdetail',{p_id:item['playersMaster']['_id'],seasons_data:2016,scope_data:'Expected'}]">{{item['playersMaster']['full_name']}}</a></td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['current_team_name']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['primary_position']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['age']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" >{{item['playersMaster']['domestic_competition_area_name']}} </td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['market_value']  | currency:'EUR':true:'4.2-2'}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['contract_expires']}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="userData.user.realm=='manager'">
+          <div class="row">
+            <div class="col-xl-10">
+              <h2 class="article-title">Recent Addition to Target</h2>
+            </div>
+            <div class="col-xl-2"><a [routerLink]="['/app/target']"  class="btn-w-md btn-mini mat-raised-button float-right">View all</a></div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="main-content text-center"  style="margin-top:15px;">
+                <div class="box box-default table-box table-responsive">
+                  <table class="mdl-data-table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Date</th>
+                        <th class="mdl-data-table__cell--non-numeric">List</th>
+                        <th class="mdl-data-table__cell--non-numeric">Name</th>
+                        <th class="mdl-data-table__cell--non-numeric">Team</th>
+                        <th class="mdl-data-table__cell--non-numeric">Position</th>
+                        <th class="mdl-data-table__cell--non-numeric">Age</th>
+                        <th class="mdl-data-table__cell--non-numeric">Nationality</th>
+                        <th class="mdl-data-table__cell--non-numeric">Market Value</th>
+                        <th class="mdl-data-table__cell--non-numeric">Contract</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of targetLists" >
+                        <td class="mdl-data-table__cell--non-numeric" > {{item['id']| formatDateKey}} </td>
+                        <td class="mdl-data-table__cell--non-numeric" >{{item['target']['target_name']}}</td>
+                        <td class="mdl-data-table__cell--non-numeric" ><a href="javascript:void(0);" [routerLink]="['/app/playerdetail',{p_id:item['playersMaster']['_id'],seasons_data:2016,scope_data:'Expected'}]">{{item['playersMaster']['full_name']}}</a></td>
+                        <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['current_team_name']}}</td>
+                       <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['primary_position']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['age']}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" >{{item['playersMaster']['domestic_competition_area_name']}} </td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['market_value']  | currency:'EUR':true:'4.2-2'}}</td>
+                      <td class="mdl-data-table__cell--non-numeric" > {{item['playersMaster']['contract_expires']}} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

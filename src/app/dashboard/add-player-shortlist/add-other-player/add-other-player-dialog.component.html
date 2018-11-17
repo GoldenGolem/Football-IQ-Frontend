@@ -1,0 +1,27 @@
+
+<div class="main-body">
+ 
+		<div><h4>Add Other Player</h4></div>
+      <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+        <div class="callout callout-success">
+          <p>Cheers! Player(s) added Successfully.</p>
+        </div>
+      </div>
+      
+        <form name="material_login_form" class="md-form-auth form-validation" #listForm="ngForm" (ngSubmit)="onSubmitAddedOtherPlayerExistShortlist()">
+          <fieldset>
+					<div class="row" style="margin-top:25px">
+					<div class="col-xl-12">
+          <md-select required name="players_name" placeholder="Select Player" [(ngModel)]="selectedValue" class="col-xl-12" style="width:300px;">
+            <md-option *ngFor="let player of players" [value]="player._id"> {{ player.full_name }} </md-option>
+          </md-select>
+					</div></div>
+          <div class="row" style="margin-top:25px">
+					<div class="col-xl-12">
+					<button md-raised-button  type="submit" color="primary" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!listForm.form.valid">Confirm	</button>
+          </div></div>
+					</fieldset>
+        </form>
+     
+   
+</div>

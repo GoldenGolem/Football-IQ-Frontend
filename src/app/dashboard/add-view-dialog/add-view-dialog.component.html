@@ -1,0 +1,31 @@
+
+<div class="main-body">
+<div><h4>Create New View</h4></div>
+      <div class="divider divider-sm"></div>
+      <div class="divider divider-lg"></div>
+      <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+        <div class="callout callout-success">
+          <p>Cheers! View added Successfully.</p>
+        </div>
+      </div>
+      <section class="container-fluid" [hidden]="submitted">
+        <form name="material_login_form" class="md-form-auth form-validation" (ngSubmit)="onSubmit()" #heroForm="ngForm">
+          <fieldset>
+          <div class="form-group">
+            <md-input-container class="full-width">
+              <input required mdInput name="view_name" type="text" [(ngModel)]="model.view_name" #shortlist_name="ngModel" placeholder="Enter View Name">
+            </md-input-container>
+            <!--   <div [hidden]="shortlist_name.valid || shortlist_name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div> -->
+          </div>
+          <button md-raised-button  type="submit" class="btn-w-md mat-raised-button mat-accent-primary col-xl-12" [disabled]="!heroForm.form.valid" color="primary" >
+          Confirm
+          </button>
+          </fieldset>
+        </form>
+      </section>
+    
+	
+</div>

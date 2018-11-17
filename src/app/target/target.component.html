@@ -1,0 +1,72 @@
+<section class="container-fluid with-maxwidth chapter">
+
+<div>
+ <div class="row">
+      <div class="col-xl-12 breadcrumbs"><a [routerLink]="['/app/home']">Dashboard</a> &rarr; Target(s)</div>
+    </div>
+        <div class="row">
+          <div class="col-xl-12">
+ <article class="article">
+    <h2 class="article-title">Target(s)</h2>
+    <!--  <div class="divider divider-sm"></div>  
+   <div class="divider divider-lg"></div>
+  <div style="clear:both; display:none;" class="callouttoken" id="targetSuccess">
+    <div class="callout callout-success">
+    <p>Successfully Added to Target :)</p>
+  </div>
+  </div> -->
+  <div style="margin-top:15px;">
+<div class="row">
+          <div class="col-xl-12">
+  <div style="clear:both; display:none;" class="callouttoken" id="targetDelete">
+    <div class="callout callout-success">
+    <p>Successfully Deleted to Target :)</p>
+  </div>
+  </div>
+  <div style="clear:both;" class="callouttoken" id="shortListDataTableLoading">
+    <div class="callout callout-success">
+      <p>Please wait while Datatable is loading ...</p>
+    </div>
+  </div>
+    
+                <button class="btn-w-md mat-raised-button" (click)="openDialogWithACreateTargetForm()"> + Create New Target</button>
+   
+    <div style="margin-top:28px;">
+<div class="row">
+          <div class="col-xl-12">
+    <div class="box box-default table-box table-responsive" *ngIf="targets?.length>0">
+  
+      <table class="mdl-data-table table-bordered table-striped dataTable" id="targeting">
+        <thead>
+          <tr>
+      <ng-container *ngFor="let targetKey of targetKeys; let i = index" >
+            <th class="mdl-data-table__cell--non-numeric" *ngIf="targetKey != 'user_id'"   >  {{targetKey | formatPlayerKey}}</th>
+            </ng-container>
+           <th class="mdl-data-table__cell--non-numeric">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+         <tr *ngFor="let item of targets ; let i = index" >
+
+            <ng-container *ngFor="let targetKey of targetKeys"  >
+            <td class="mdl-data-table__cell--non-numeric"  *ngIf="targetKey != 'user_id'" >
+              <a href="javascript:void(0);" *ngIf="targetKey=='target_name' || targetKey=='targetPlayersCount'" [routerLink]="['/app/targetplayers',{t_id:item['id']}]">{{item[targetKey]}}</a>
+              <span *ngIf="targetKey!='target_name' && targetKey!='targetPlayersCount'">{{item[targetKey]}} </span>
+            </td>
+            </ng-container>
+
+            <td class="mdl-data-table__cell--non-numeric" ><a href="javascript:void(0);" (click)="editTarget(item)"><span class="ic-edit"> </span></a>   <a href="javascript:void(0);" (click)="deleteTarget(item)"><span class="ic-delete"> </span></a></td>
+          </tr>         
+
+        </tbody>
+      </table>
+      </div></div></div>
+    </div>
+    <div *ngIf="targets?.length==0" class="text-center">Record not found</div>
+    </div></div></div>
+  </article>
+</div></div></div>
+
+
+</section>

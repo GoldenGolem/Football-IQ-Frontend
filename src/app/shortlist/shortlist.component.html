@@ -1,0 +1,55 @@
+<section class="container-fluid with-maxwidth chapter">
+  <div>
+	 <div class="row">
+      <div class="col-xl-12 breadcrumbs"><a [routerLink]="['/app/home']">Dashboard</a> &rarr; Shortlist(s)</div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <article class="article">
+          <h2 class="article-title">Shortlist(s)</h2>
+          <!--  <div class="divider divider-sm"></div>  
+   <div class="divider divider-lg"></div>
+  <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+    <div class="callout callout-success">
+    <p>Successfully Added to ShortList :)</p>
+  </div>
+  </div> -->
+          <div  style="margin-top:15px;">
+            <div class="row">
+              <div class="col-xl-12">
+                <button class="btn-w-md mat-raised-button" *ngIf="isAdmin!=true" (click)="openDialogWithACreateShortlistForm()"> + Create New Shortlist</button>
+                <div style="margin-top:28px;">
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="box box-default table-box table-responsive" *ngIf="shortlists?.length>0">
+                        <table class="mdl-data-table table-bordered table-striped" id="shortlisting">
+                          <thead>
+                            <tr>
+                              <ng-container *ngFor="let shortlistKey of shortlistKeys; let i = index" >
+                                <th class="mdl-data-table__cell--non-numeric" *ngIf="shortlistKey != 'user_id'"   > {{shortlistKey | formatPlayerKey}}</th>
+                              </ng-container>
+                              <th class="mdl-data-table__cell--non-numeric" *ngIf="isAdmin!=true">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of shortlists ; let i = index" >
+                              <ng-container *ngFor="let shortlistKey of shortlistKeys"  >
+                                <td class="mdl-data-table__cell--non-numeric"  *ngIf="shortlistKey != 'user_id'" ><a href="javascript:void(0);" *ngIf="shortlistKey=='shortlist_name' || shortlistKey=='shortlistPlayersCount'" [routerLink]="['/app/shortlistplayers',{s_id:item['id']}]">{{item[shortlistKey]}}</a> <span *ngIf="shortlistKey!='shortlist_name' && shortlistKey!='shortlistPlayersCount'">{{item[shortlistKey]}} </span> </td>
+                              </ng-container>
+                              <td class="mdl-data-table__cell--non-numeric" *ngIf="isAdmin!=true"><a href="javascript:void(0);" (click)="editShortList(item)"><span class="ic-edit"> </span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" (click)="deleteShortList(item)" class="ic-delete"><span class="ic-delete"> </span></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="shortlists?.length==0" class="text-center">Record not found</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

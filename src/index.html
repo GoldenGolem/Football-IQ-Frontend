@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>FootballIQ</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://yadcf-showcase.appspot.com/resources/css/jquery.dataTables.yadcf.css">
+
+
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> -->
+
+<style type="text/css">
+  input.yadcf-filter-range-number{
+    width:30% !important;
+    margin: 0px 5%;
+  }
+  .yadcf-filter-reset-button{
+    display: none;
+  }
+   table.dataTable tbody th, table.dataTable tbody td{
+    padding: 0px 10px;
+   }
+   #yadcf-filter-wrapper--_id{
+    display: none;
+   }
+   #example_filter{
+    display: none;
+   }
+</style>
+
+<!-- <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
+  </script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
+  </script>
+  
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="https://yadcf-showcase.appspot.com/resources/js/jquery.dataTables.yadcf.js"></script> -->
+
+  <script type="text/javascript" class="init">
+ /* window["yadcf"] = yadcf;
+var table;
+
+$(window).load(function() {
+
+setTimeout(function(){ 
+
+  var column_names = window["column_names"];
+ if(column_names.length > 0){
+
+    table =  $('#example').DataTable( {
+    "pagingType": "simple_numbers",
+    "pageLength": 10,
+    "lengthMenu": [[5 ,10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+    "stateSave": false,
+    "fixedHeader": true,
+    "dom": 'Bfrtip', 
+    "columns": column_names,
+    "searching": true,
+    "bInfo": false,
+    'columnDefs': [{
+  	   'targets': 0,
+  	   'searchable':false,
+  	   'orderable':false,
+  	   'className': 'dt-body-center',
+  	   'render': function (data, type, full, meta){
+  		   return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+  	   }
+    }],
+    "buttons": [
+      // 'copyHtml5',
+      // 'excelHtml5',
+      // 'csvHtml5',
+      // 'pdfHtml5',
+       {
+          "extend" : 'pdfHtml5',
+          "title" : function() {
+              return "Players List";
+          },
+          "orientation" : 'landscape',
+          "pageSize" : 'A0',
+          "text" : '<strong class="fa fa-file-pdf-o">Export to PDF</strong>',
+          "titleAttr" : 'PDF'
+      } 
+    ]
+  });
+
+$('#dataTableLoading').hide('slow');
+
+$('#example-select-all').on('click', function(){
+
+  alert('here');
+   // Get all rows with search applied
+   var rows = table.rows({ 'search': 'applied' }).nodes();
+   // Check/uncheck checkboxes for all rows in the table
+   $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   //$('input[type="checkbox"]').prop('checked', this.checked);
+});
+
+   table.buttons( 0, null ).containers().appendTo( '#pdfbutton' );
+$("#examplePaginate").append($(".dataTables_paginate"));
+
+  var column_yadcf = window["column_yadcf"];
+  
+  yadcf.init(table, column_yadcf);
+
+
+    // Setup - add a text input to each footer cell
+    /*  $('#example tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" />' );
+      } );
+	  
+	  
+	 
+
+    // Apply the search
+    table.columns().every( function () {
+
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+          if ( that.search() !== this.value ) {
+            that
+            .search( this.value )
+            .draw();
+          }
+        });
+      });
+*/
+
+     /* $('md-checkbox.toggle-vis').on( 'click', function (e) {
+        // Get the column API object
+        var column = table.column( $(this).attr('data-column') + ':name' );
+        var isChecked = $(this).find('.mat-checkbox-input').is(":checked");
+
+        // Toggle the visibility
+        column.visible( ! isChecked );
+      });
+
+}
+ }, 10000);
+
+ 
+ 
+  
+} );
+*/
+
+/*$("document").ready(function(){
+$('#example-select-all').on('click', function(){
+   // Get all rows with search applied
+   var rows = table.rows({ 'search': 'applied' }).nodes();
+   // Check/uncheck checkboxes for all rows in the table
+   $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   //$('input[type="checkbox"]').prop('checked', this.checked);
+});
+});*/
+  </script>
+    <!-- google fonts -->
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Roboto:100,300,400,400italic,500,700:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = 'vendors/webfontloader/webfontloader.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); 
+    </script>
+    <link rel="stylesheet" type="text/css" href="vendors/loader.css">
+    <link rel="stylesheet" type="text/css" href="vendors/material-design-icons/iconfont/material-icons.css">
+    <base href="">
+  </head>
+
+  <body id="body">
+  
+    <app-root>
+      <div id="loader-container"></div>
+    </app-root>
+  </body>
+</html>

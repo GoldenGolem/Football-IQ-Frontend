@@ -1,0 +1,70 @@
+
+<section class="container-fluid with-maxwidth chapter">
+  <div *ngIf="utype=='manager'">
+	 <div class="row">
+      <div class="col-xl-12 breadcrumbs"><a [routerLink]="['/app/home']">Dashboard</a> &rarr; Userslist(s)</div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <article class="article">
+          <h2 class="article-title">Userslist(s)</h2>
+          <!--  <div class="divider divider-sm"></div>  
+   <div class="divider divider-lg"></div>
+  <div style="clear:both; display:none;" class="callouttoken" id="shortlistSuccess">
+    <div class="callout callout-success">
+    <p>Successfully Added to ShortList :)</p>
+  </div>
+  </div> -->
+          <div  style="margin-top:15px;">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="callouttoken" id="shortListDataTableLoading">
+                  <div class="callout callout-success">
+                    <p>Please wait while user listing is loading ...</p>
+                  </div>
+                </div>
+                
+				
+					
+                      <div class="box box-default table-box table-responsive">
+                        <table class="mdl-data-table table-bordered table-striped" id="userListing">
+                          <thead>
+                            <tr>
+                              <!-- <th class="mdl-data-table__cell--non-numeric"> User ID</th> -->
+                              <th class="mdl-data-table__cell--non-numeric"> User Name</th>
+                              <th class="mdl-data-table__cell--non-numeric"> Email Address</th>
+                              <th class="mdl-data-table__cell--non-numeric"> Watchlist</th>
+                              <th class="mdl-data-table__cell--non-numeric"> Shortlist</th>
+                              <th class="mdl-data-table__cell--non-numeric">Action</th>
+                            </tr>
+                          </thead>
+                         
+                          <tbody>
+                            <tr *ngFor="let item of userlists" >
+                              <!-- <td class="mdl-data-table__cell--non-numeric"   >{{item['id']}} </td> -->
+                              <td class="mdl-data-table__cell--non-numeric"   >{{item['username']}} </td>
+                              <td class="mdl-data-table__cell--non-numeric"   >{{item['email']}} </td>
+                              <td class="mdl-data-table__cell--non-numeric"   >{{item['watchlistsCount']}} </td>
+                              <td class="mdl-data-table__cell--non-numeric"   >{{item['shortlistPlayersCount']}} </td>
+                              <td class="mdl-data-table__cell--non-numeric" ><a href="javascript:void(0);" (click)="clickDashboard(item)">View Dashbord</a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+					  
+					  <div class="paging">
+						<div id="examplePageLength" class="dataTables_wrapper"></div>
+						<div id="dataTableInfo"  class="dataTables_wrapper"></div>
+						<div id="examplePaginate" class="dataTables_wrapper"></div>
+						</div>
+						<div class="divider divider-lg"></div>
+										  
+				  
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

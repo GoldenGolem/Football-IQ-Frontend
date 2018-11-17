@@ -1,0 +1,303 @@
+<section class="quickview-wrapper customizer hidden-lg-down" id="quickview-customizer"> <a class="customizer-close" href="javascript:;" myToggleQuickview="customizer"><span class="material-icons">close</span></a> <a class="customizer-toggle" href="javascript:;" myToggleQuickview="customizer"><span class="material-icons">tune</span></a>
+  <div class="quickview-inner" mySlimScroll>
+    <div>
+      <!--<h2>Filter</h2>-->
+      <md-tab-group class="filter-section">
+        <md-tab label="Basic Info">
+          <section class="box box-transparent">
+            <div class="box-body">
+              <div class="row"> <span *ngFor="let basickey of basicArray | keyarray" class="col-md-3">
+                <md-checkbox class="toggle-vis" [attr.data-column]="basickey.value" [checked]="true">{{basickey.key}}</md-checkbox>
+                <span class="space space-md"></span> </span> </div>
+            </div>
+          </section>
+        </md-tab>
+        <md-tab label="Participations">
+          <section class="box box-transparent">
+            <div class="box-body">
+              <div class="row"> <span *ngFor="let partkey of partArray | keyarray" class="col-md-3">
+                <md-checkbox class="toggle-vis" [attr.data-column]="partkey.value" [checked]="false">{{partkey.key}}</md-checkbox>
+                <span class="space space-md"></span> </span> </div>
+            </div>
+          </section>
+        </md-tab>
+        <md-tab label="Statistics">
+          <section class="box box-transparent">
+            <div class="box-body">
+              <md-tab-group>
+                <md-tab label="Passing">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statispassingkey of statisPassingArray | keyarray" class="col-md-4">
+                          <div class="article-title-style">{{statispassingkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statispassingchildkey of statispassingkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statispassingchildkey.value" [checked]="false">{{statispassingchildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Offensive">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"><span *ngFor="let statisOffensivekey of statisOffensiveArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisOffensivekey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisOffensivechildkey of statisOffensivekey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisOffensivechildkey.value" [checked]="false">{{statisOffensivechildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Defensive">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statisDefensivekey of statisDefensiveArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisDefensivekey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisDefensivechildkey of statisDefensivekey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisDefensivechildkey.value" [checked]="false">{{statisDefensivechildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Duels">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statisDuelskey of statisDuelsArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisDuelskey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisDuelschildkey of statisDuelskey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisDuelschildkey.value" [checked]="false">{{statisDuelschildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Arial">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statisAerialkey of statisAerialArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisAerialkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisAerialchildkey of statisAerialkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisAerialchildkey.value" [checked]="false">{{statisAerialchildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Set Pieces">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statisSetpieceskey of statisSetpiecesArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisSetpieceskey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisSetpieceschildkey of statisSetpieceskey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisSetpieceschildkey.value" [checked]="false">{{statisSetpieceschildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+                <md-tab label="Goalkeeping">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let statisGoalkeeptingkey of statisGoalkeeptingArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{statisGoalkeeptingkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let statisGoalkeeptingchildkey of statisGoalkeeptingkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="statisGoalkeeptingchildkey.value" [checked]="false">{{statisGoalkeeptingchildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+              </md-tab-group>
+            </div>
+          </section>
+        </md-tab>
+				
+        <md-tab label="Attributes">
+          <section class="box box-transparent">
+            <div class="box-body">
+              <md-tab-group>
+                <md-tab label="Combo">
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> <span *ngFor="let combokey of attrComboArray | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{combokey.key}}</div>
+                          <ul>
+                            <li *ngFor="let combochildkey of combokey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="combochildkey.value" [checked]="false">{{combochildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                      </div>
+                    </div>
+                  </section>
+                </md-tab>
+								
+                <md-tab label="Classic (All)">
+                 <md-tab-group>
+                  <ng-container *ngFor="let callkey of attrClassicAllArray | keyarray">
+                   <md-tab label={{callkey.key}}>  
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <!--  <span *ngFor="let callkey of attrClassicAllArray | keyarray"  class="col-md-4"> -->
+                          <!-- <div class="article-title-style f-parent">{{callkey.key}}</div> -->
+                         <div class="horizontal-scroll"> <span *ngFor="let callchildkey of callkey.value | keyarray"  class="col-md-4">
+                          <div class="article-title-style">{{callchildkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let callsuperchildkey of callchildkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="callsuperchildkey.value" [checked]="false">{{callsuperchildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          </span> </div>
+                          </div>
+                    </div>
+                  </section>
+                          </md-tab>
+                           </ng-container>
+                             </md-tab-group>
+                          <!-- </span> -->
+                      
+                </md-tab>
+								
+                <md-tab label="Classic (Overalls)">
+                 <md-tab-group>
+                  <ng-container *ngFor="let coverallkey of attrClassicOverAllArray | keyarray">
+                   <md-tab label={{coverallkey.key}}>  
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> 
+                       <!--  <span *ngFor="let coverallkey of attrClassicOverAllArray | keyarray"  class="col-md-4"> -->
+                          <!-- <div class="article-title-style">{{coverallkey.key}}</div> -->
+                          <ul>
+                            <li *ngFor="let coverallchildkey of coverallkey.value | keyarray" class="col-md-4">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="coverallchildkey.value" [checked]="false">{{coverallchildkey.key}}</md-checkbox>
+                              <!--<span class="space space-md"></span>-->
+                            </li>
+                          </ul>
+                          <!-- </span> -->
+                           </div>
+                      </div>
+                    </div>
+                  </section>
+                          </md-tab>
+                          </ng-container>
+                           </md-tab-group>
+                          
+                </md-tab>
+                <md-tab label="Behaviour (by Type)">
+                 <md-tab-group>
+                  <ng-container *ngFor="let btypekey of attrBehaviourTypeArray | keyarray">
+                   <md-tab label={{btypekey.key}}>  
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> 
+                        <!-- <span *ngFor="let btypekey of attrBehaviourTypeArray | keyarray"  class="col-md-4"> -->
+                          <!-- <div class="article-title-style f-parent">{{btypekey.key}}</div> -->
+                          <span *ngFor="let btypechildkey of btypekey.value | keyarray" class="col-md-4">
+                          <div class="article-title-style">{{btypechildkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let btypesuperchildkey of btypechildkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="btypesuperchildkey.value" [checked]="false">{{btypesuperchildkey.key}}</md-checkbox>
+                              <span class="space space-md"></span> </li>
+                          </ul>
+                          </span>
+                           <!-- </span> -->
+                           </div>
+                      </div>
+                    </div>
+                  </section>
+                            </md-tab>
+                            </ng-container>
+                             </md-tab-group>
+                            
+                </md-tab>
+                <md-tab label="Behaviour (by Category)">
+                <md-tab-group>
+                  <ng-container *ngFor="let bcategorykey of attrBehaviourCategoryArray | keyarray">
+                   <md-tab label={{bcategorykey.key}}>  
+                  <section class="box box-transparent">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="horizontal-scroll"> 
+                        <!-- <span *ngFor="let bcategorykey of attrBehaviourCategoryArray | keyarray"  class="col-md-4"> -->
+                          <!-- <div class="article-title-style f-parent">{{bcategorykey.key}}</div> -->
+                          <span *ngFor="let bcategorychildkey of bcategorykey.value | keyarray" class="col-md-4">
+                          <div class="article-title-style">{{bcategorychildkey.key}}</div>
+                          <ul>
+                            <li *ngFor="let bcategorysuperchildkey of bcategorychildkey.value | keyarray">
+                              <md-checkbox class="toggle-vis" [attr.data-column]="bcategorysuperchildkey.value" [checked]="false">{{bcategorysuperchildkey.key}}</md-checkbox>
+                              <span class="space space-md"></span> </li>
+                          </ul>
+                          </span> 
+                          <!-- </span>  -->
+                          </div>
+                      </div>
+                    </div>
+                  </section>
+                           </md-tab>
+                           </ng-container>
+                            </md-tab-group>
+                          
+                </md-tab>
+              </md-tab-group>
+            </div>
+          </section>
+        </md-tab>
+      </md-tab-group>
+	  
+	    <div class="box" style="width:100%; float:right;box-shadow: none; margin-top:15px;">
+		  <div class="row">
+			<div class="col-xl-12">
+			  <div class="row">
+			   <div class="col-xl-10">
+				<button class="btn-w-md btn-mini mat-raised-button" (click)="openDialogWithaddToViewlistForm()" id="savecurrentview">+ Save Current Filters</button>
+			  </div>
+			</div>
+		  </div>
+		</div></div>
+	  
+    </div>
+  </div>
+</section>
